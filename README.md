@@ -1,7 +1,7 @@
 # Flappy Plane
 Un jeu d'esquive d'obstacle où les joueurs doivent programmer leurs propres robots !
 ### 🎯 Contexte & cahier des charges :
-Développé dans le cadre d'une formation, le flappy plane doit être un nouveau mode de jeu pour PytactX (voir [jusdelien.com](https://jusdelien.com)) et permettre au groupe de monter en compétences en python en mettant en pratique les principes SOLID.
+Développé dans le cadre d'une formation, le flappy plane doit être un nouveau mode de jeu pour PytactX (voir [jusdeliens.com](https://jusdeliens.com)) et permettre au groupe de monter en compétences en python en mettant en pratique les principes SOLID.
 ### 🎲 Règles du jeu :
 Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, il est possible de gêner les autres joueurs en se mettant devant eux.
 Si un joueur est touché par un obstacle, il meurt et obtient alors un score en fonction final correspondant au nombre d'obstacles passés.
@@ -24,7 +24,32 @@ step by step pour lancer les tests
 - [ ] Mode Battle Royale
 - [ ] Equipes
 - [ ] Collectables
-## 🧑‍💻 Auteur
-à compléter
+## 🧑‍💻 Auteurs
+- Augustin BUKIN ([Nehocute](https://github.com/Nehocute))
+- Théo LEBIEZ ([Deeffault](https://github.com/Deeffault))
+- Teiva TESSON ([teidova](https://github.com/teidova))
+- Samy VASSE ([samy313](https://github.com/samy313))
+## Dépendances
+- librairie j2l (auteur: [jusdeliens.com](https://jusdeliens.com))
 ## ⚖️ License
-à compléter
+MIT License
+
+Copyright (c) 2023 Augustin BUKIN, Théo LEBIEZ, Teiva TESSON, Samy VASSE
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
