@@ -5,7 +5,8 @@ Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, i
 Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en fonction du nombre d'obstacles passés.
 ### 🎮 Use cases:
 - pour l'administrateur : [README.md](README.md)
-- pour le joueur : TODO
+<!-- TODO:Faire le use case pour le joueur -->
+- pour le joueur :
 ## ✅ Pré-requis
 En tant que joueur vous aurez besoin de python 3.12 pour éxécuter le projet.
 ## ⚙️ Installation : 
