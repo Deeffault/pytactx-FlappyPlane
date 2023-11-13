@@ -5,14 +5,16 @@ Développé dans le cadre d'une formation, le flappy plane doit être un nouveau
 ### 🎲 Règles du jeu :
 Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, il est possible de gêner les autres joueurs en se mettant devant eux.
 Si un joueur est touché par un obstacle, il meurt et obtient alors un score en fonction final correspondant au nombre d'obstacles passés.
-### 🎮 Use cases:
-- pour l'administrateur : TODO expliquer ce que peut/doit faire un administrateur qui souhaite lancer/administrer une arène de jeu avec des apprenants
-- pour le joueur : TODO renvoyer vers README API
+### 🎮 Use cases :
+#### Administrateur : 
+- L'administrateur peut configurer l'arène via le fichier d'options.
+#### Joueur :
+- Si vous êtes un joueur, référez vous au [README_API](api/README_API.md)
 ## 📞 Diagramme de séquence :
 expliquer le déroulé d'une partie, les principales étapes à faire dans l'ordre et qui/quoi/comment, les couches s'échangent quelles données pour qui/pour quoi, et l'architecture matérielle
 ## ✅ Pré-requis
 En tant qu'administrateur vous aurez besoin de python 3.12 pour éxécuter le projet.
-Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](README_API.md) à la place
+Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](api/README_API.md) à la place
 ## ⚙️ Installation :
 step by step (commandes à executer par l'administrateur, paquets à installer ...)
 ## 🧪 Tests:
