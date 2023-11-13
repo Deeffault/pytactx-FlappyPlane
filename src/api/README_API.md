@@ -1,3 +1,23 @@
+# Flappy plane
+Un jeu d'esquive d'obstacle où les joueurs doivent programmer leurs propres robots !
+### 🎲 Règles du jeu :
+Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, il est possible de géner les autres joueurs en se mettant devant eux.
+Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en fonction du nombre d'obstacles passés.
+### 🎮 Use cases:
+- pour l'administrateur : [README.md](README.md)
+- pour le joueur : TODO
+## ✅ Pré-requis
+En tant que joueur vous aurez besoin de python 3.12 pour éxécuter le projet.
+## ⚙️ Installation : 
+step by step (commandes à executer par l'administrateur, paquets à installer ...)
+## 🧑‍💻 Auteur
+- Augustin BUKIN
+- Théo LEBIEZ
+- Teiva TESSON 
+- Samy VASSE
+## Dépendances
+- librairie j2l (auteur: [jusdeliens.com](https://jusdeliens.com))
+## ⚖️ License
 MIT License
 
 Copyright (c) 2023 Augustin BUKIN, Théo Lebiez Teiva TESSON, Samy VASSE
