@@ -1,5 +1,5 @@
 # pytactx-TD3
-- **Titre** du jeu
+- **Titre** du jeu : Flappy Plane
 - **Description** courte du jeu
 - **🎯 Contexte & cahier des charges** : développé dans le cadre d'une formation, pour un formateur pour monter en compétence en Python ...
 - **🎲 Règles** du jeu : maquette, déroulé d'une partie, conditions de victoire
