@@ -4,18 +4,18 @@ Un jeu d'esquive d'obstacle où les joueurs doivent programmer leurs propres rob
 Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, il est possible de géner les autres joueurs en se mettant devant eux.
 Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en fonction du nombre d'obstacles passés.
 ### 🎮 Use cases:
-- pour l'administrateur : [README.md](README.md)
-<!-- TODO:Faire le use case pour le joueur -->
-- pour le joueur :
+- pour l'administrateur : [README.md](../..README.md)
+- pour le joueur : 
+    - TODO
 ## ✅ Pré-requis
 En tant que joueur vous aurez besoin de python 3.12 pour éxécuter le projet.
 ## ⚙️ Installation : 
 step by step (commandes à executer par l'administrateur, paquets à installer ...)
 ## 🧑‍💻 Auteur
-- Augustin BUKIN
-- Théo LEBIEZ
-- Teiva TESSON 
-- Samy VASSE
+- Augustin BUKIN ([Nehocute](https://github.com/Nehocute))
+- Théo LEBIEZ ([Deeffault](https://github.com/Deeffault))
+- Teiva TESSON ([teidova](https://github.com/teidova))
+- Samy VASSE ([samy313](https://github.com/samy313))
 ## Dépendances
 - librairie j2l (auteur: [jusdeliens.com](https://jusdeliens.com))
 ## ⚖️ License
