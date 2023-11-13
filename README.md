@@ -1,10 +1,13 @@
 # Flappy Plane
+![Playground](doc/res/Icon.png)
 Un jeu d'esquive d'obstacle où les joueurs doivent programmer leurs propres robots !
 ### 🎯 Contexte & cahier des charges :
 Développé dans le cadre d'une formation, le flappy plane doit être un nouveau mode de jeu pour PytactX (voir [jusdeliens.com](https://jusdeliens.com)) et permettre au groupe de monter en compétences en python en mettant en pratique les principes SOLID.
+![Playground](doc/Playground.png)
 ### 🎲 Règles du jeu :
 Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, il est possible de gêner les autres joueurs en se mettant devant eux.
 Si un joueur est touché par un obstacle, il meurt et obtient alors un score en fonction final correspondant au nombre d'obstacles passés.
+![Playground](doc/Rules-1.png)
 ### 🎮 Use cases:
 - pour l'administrateur : TODO expliquer ce que peut/doit faire un administrateur qui souhaite lancer/administrer une arène de jeu avec des apprenants
 - pour le joueur : TODO renvoyer vers README API
