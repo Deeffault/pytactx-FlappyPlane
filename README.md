@@ -37,6 +37,10 @@ step by step pour lancer les tests
 ## Dépendances
 - librairie j2l (auteur: [jusdeliens.com](https://jusdeliens.com))
 ## ⚖️ License
+
+Background images by vectorpocket on Freepik : 
+<a href="https://www.freepik.com/free-vector/background-with-night-city-neon-lights_3586829.htm?query=city%20towers#from_view=detail_alsolike">bg1</a>,  <a href="https://www.freepik.com/free-vector/background-with-night-city-neon-lights_3586319.htm?query=city%20towers#from_view=detail_alsolike">bg2</a> & <a href="https://www.freepik.com/free-vector/neon-megapolis-background-with-buildings-skyscrapers_3586320.htm?query=city%20towers#from_view=detail_alsolike">bg3</a> 
+
 MIT License
 
 Copyright (c) 2023 Augustin BUKIN, Théo LEBIEZ, Teiva TESSON, Samy VASSE
