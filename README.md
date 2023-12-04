@@ -23,7 +23,7 @@ L'installation des packages sont automatiquements faits lors de la création d'u
 ## 🧪 Tests:
 
 ## 🛣️ Roadmap
-- [ ✅ ] Jeu de base en FFA continu
+- [x] Jeu de base en FFA continu
 - [ ] Manches
 - [ ] Mode Battle Royale
 - [ ] Equipes
