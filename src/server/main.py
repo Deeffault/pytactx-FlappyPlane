@@ -134,7 +134,7 @@ def update_best_scores():
         best_score_of_all_time = best_alive_score
         best_player_of_all_time = best_alive_player
     
-    agent.ruleArena("info", f"| 🏆 Best score of all time: {best_score_of_all_time} by {best_player_of_all_time or '🪦'} | 👑 Best score of the current game: {best_alive_score} by {best_alive_player or '🪦'}")
+    agent.ruleArena("info", f"| 🏆 Best score of all time: {best_score_of_all_time} by {best_player_of_all_time or '💀'} | 👑 Best score of the current game: {best_alive_score} by {best_alive_player or '💀'}")
 
 COLUMNS = 16
 ROWS = 9
