@@ -1,0 +1,21 @@
+@startuml diagramme-sequence
+
+actor Joueurs
+participant "Arbitre" as Carte
+participant "Obstacles" as Obstacles
+participant "API" as API
+participant "Joueur" as Joueur
+
+Joueurs -> Carte : Rejoindre la carte
+Carte -> Obstacles : Générer obstacles
+Carte -> Joueurs : Afficher obstacles
+Joueurs -> Joueurs : Esquiver obstacles
+Joueurs -> Joueurs : Gêner autres joueurs
+Joueurs -> API : Envoyer position
+API -> Carte : Mettre à jour position joueur
+Carte -> Obstacles : Vérifier collision
+Carte -> Joueur : Tuer joueur
+Joueur -> API : Envoyer score final
+API -> Joueurs : Afficher score final
+
+@enduml
