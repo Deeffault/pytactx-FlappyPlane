@@ -180,9 +180,8 @@ agent.ruleArena("mapHit", [0 for i in range(9)])
 # Player texture array
 agent.ruleArena("pImgs", ["https://cdn.discordapp.com/attachments/1173930308039610378/1173931307613552661/Variant2.png"])
 
-# Players tick speed
-# agent.ruleArena("speedIni", [1000, 1000, 1000, 1000])
-# agent.ruleArena("speedMax", [1000, 1000, 1000, 1000])
+# Disable Brownian Map
+agent.ruleArena("brownianMap", False)
 
 # Collision dmg
 agent.ruleArena("hitCollision", [0, 0, 0, 0, 0])
@@ -203,17 +202,19 @@ while True:
     # Get the game state
     from time import sleep
     update_best_scores()
-    agent.update()
-    new_tick_time = time()
-    delta = new_tick_time - last_tick_time
-    sleep(max(1 - delta, 0))
-    print(delta)
-    last_tick_time = time()
+    #agent.update()
+    #new_tick_time = time()
+    #delta = new_tick_time - last_tick_time
+    #sleep(max(0.25 - delta, 0))
+    #print(delta)
+    #last_tick_time = time()
     agent.update()
     #print([(obs.x, obs.y) for obs in obstacles])
     
     obstacles_to_delete = []
     for obstacle in obstacles:
+        if not obstacle.is_out_of_bound():
+            obstacle.push_agents()
         obstacle.move()
         if obstacle.is_out_of_bound():
             obstacles_to_delete.append(obstacle)
