@@ -62,9 +62,9 @@ class TowerObstacle(IObstacle):
                 if i >= self.y and i < self.y + self.z:
                     map[i][self.x] = 0
                 elif i < self.y:
-                    map[i][self.x] = 5
+                    map[i][self.x] = 5 + min(i, 3) if self.y >= 4 else 5 + i + (4 - self.y)
                 else:
-                    map[i][self.x] = 1
+                    map[i][self.x] = min(i, 3) + 1
                 #mapFriction[i][self.x] = 0 if i == self.y else 1
                 
         agent.ruleArena("map", map)
@@ -122,17 +122,22 @@ while True:
     from time import sleep
     sleep(1)
     agent.update()
-    print([obs.x for obs in obstacles])
+    print([(obs.x, obs.y) for obs in obstacles])
     
+    obstacles_to_delete = []
     for obstacle in obstacles:
         obstacle.move()
         if obstacle.is_out_of_bound():
-            obstacles.remove(obstacle)
+            obstacles_to_delete.append(obstacle)
+    
+    for obstacle in obstacles_to_delete:
+        obstacles.remove(obstacle)
     
     from random import randint
-    if i % 3 == 0:
+    if i % 4 == 0:
         obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
     
+    agent.moveTowards(0, 0)
     i+=1
     
     
