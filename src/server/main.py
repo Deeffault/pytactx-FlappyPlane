@@ -15,11 +15,11 @@ import api.j2l.pytactx.agent as pytactx
 
 
 arbitre = pytactx.Agent(playerId=__playerId__,
-	arena=__arena__,
-	username=__username__,
-	password=__password__,
-	server=__server__,
-	verbosity=2)
+                        arena=__arena__,
+                        username=__username__,
+                        password=__password__,
+                        server=__server__,
+                        verbosity=2)
 
 # Création d'agents actualisés par l'arène elle-même
 agents = {
@@ -27,9 +27,9 @@ agents = {
     "Teiva": 0, 
     "Augustin": 0
 }
-      
+   
 posX = 1
-posY = arbitre.game['gridRows'] / 4
+posY = 2
 for agentId in agents.keys():
     arbitre.rulePlayer(agentId, "life", 100)
     arbitre.rulePlayer(agentId, "x", posX)
@@ -43,9 +43,10 @@ arbitre.setColor(255, 255, 0)
 arbitre.update()
 
 while True:
-    sizeGridRows = arbitre.game['gridRows']
-    sizeGridColumns = arbitre.game['gridColumns']
-        
+    #sizeGridRows = arbitre.game['gridRows']
+    #sizeGridColumns = arbitre.game['gridColumns']
+    
+    
     arbitre.lookAt((arbitre.dir + 1) % 4)
     arbitre.update()
     
