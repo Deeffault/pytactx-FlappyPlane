@@ -6,11 +6,12 @@ Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en
 ### 🎮 Use cases:
 - pour l'administrateur : [README.md](../..README.md)
 - pour le joueur : 
-    - TODO
+    - Le joueur peut se déplacer dans l'arène.
+    - Le joueur peut récupérer les obstacles sous la forme d'un tableau bidimensionnel. 
 ## ✅ Pré-requis
 En tant que joueur vous aurez besoin de python 3.12 pour éxécuter le projet.
 ## ⚙️ Installation : 
-step by step (commandes à executer par l'administrateur, paquets à installer ...)
+L'installation des packages sont automatiquements faits lors de la création d'un agent.
 ## 🧑‍💻 Auteur
 - Augustin BUKIN ([Nehocute](https://github.com/Nehocute))
 - Théo LEBIEZ ([Deeffault](https://github.com/Deeffault))
