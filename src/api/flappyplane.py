@@ -14,6 +14,7 @@ class IPlane (ABC):
         """
         Moves the plane according to the px,py parameters
         With px, py between -1 and 1
+        
         """
         pass
 
@@ -30,10 +31,17 @@ class IPlane (ABC):
         Returns the plane's y position
         """
         pass
+    
+    @abstractmethod
+    def getMap(self) -> tuple[tuple[int]]:
+        """
+        Returns the arena's map
+        """
+        pass
 
 class Plane(IPlane):
-    def __init__(self, playerId:str or None=None, arena:str or None=None, username:str or None=None, password:str or None=None, server:str or None=None, port:int or None=None) -> None:
-        self.__agent = pytactx.Agent(playerId, arena, username, password, server, port, verbosity=2)
+    def __init__(self, playerId:str or None=None, arena:str or None=None, username:str or None=None, password:str or None=None, server:str or None=None) -> None:
+        self.__agent = pytactx.Agent(playerId, arena, username, password, server, verbosity=2)
 
     def update(self) -> None:
         self.__agent.update()
@@ -46,3 +54,11 @@ class Plane(IPlane):
 
     def getY(self) -> int:
         return self.__agent.y
+    
+    def getMap(self) -> tuple[tuple[int]]:
+        return self.__agent.map
+
+    def moveTowards(self, x, y):
+        return self.__agent.moveTowards(x,y)
+
+    
