@@ -12,19 +12,18 @@ Si un joueur est touché par un obstacle, il meurt et obtient alors un score en 
 #### Administrateur : 
 - L'administrateur peut configurer l'arène via le fichier d'options.
 #### Joueur :
-- Si vous êtes un joueur, référez vous au [README_API](api/README_API.md)
+- Si vous êtes un joueur, référez vous au [README_API](src/api/README_API.md)
 ## 📞 Diagramme de séquence :
-expliquer le déroulé d'une partie, les principales étapes à faire dans l'ordre et qui/quoi/comment, les couches s'échangent quelles données pour qui/pour quoi, et l'architecture matérielle
+![SequenceDiagram](doc/diagramme-sequence.png)
 ## ✅ Pré-requis
 En tant qu'administrateur vous aurez besoin de python 3.12 pour éxécuter le projet.
 Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](api/README_API.md) à la place
 ## ⚙️ Installation :
-step by step (commandes à executer par l'administrateur, paquets à installer ...)
+L'installation des packages sont automatiquements faits lors de la création d'un agent.
 ## 🧪 Tests:
-définition du plan de test ce qu'on attend quand on fait quoi
-step by step pour lancer les tests
+
 ## 🛣️ Roadmap
-- [ ] Jeu de base en FFA continu
+- [ ✅ ] Jeu de base en FFA continu
 - [ ] Manches
 - [ ] Mode Battle Royale
 - [ ] Equipes

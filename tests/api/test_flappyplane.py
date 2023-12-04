@@ -35,50 +35,48 @@ class TestFlappyPlane(unittest.TestCase):
     """
     Tests the Plane class from flappyplane
     """
-    
-    agentTest = Plane
+
     
     def setUp(self):
-        global agentTest
-        agentTest = createAgent("toto")   
-        agentTest.update()  
+        self.agentTest = createAgent("toto")  
+        self.agentTest.update()  
 
     def test_move(self):
-        global agentTest
-        agentX = agentTest.getX()
-        agentY = agentTest.getY()
+        agentX = self.agentTest.getX()
+        agentY = self.agentTest.getY()
         print(f"X {agentX}  Y {agentY}")
-        print(f"X {agentTest.getX()}  Y {agentTest.getY()}")
+        print(f"X {self.agentTest.getX()}  Y {self.agentTest.getY()}")
         
-        agentTest.update()
-        agentTest.move(1, 0)
-        agentTest.update()
+        self.agentTest.update()
+        self.agentTest.move(1, 0)
         print(f"X {agentX}  Y {agentY}")
-        print(f"X {agentTest.getX()}  Y {agentTest.getY()}")
+        print(f"X {self.agentTest.getX()}  Y {self.agentTest.getY()}")
+
+        self.agentTest.update()
         sleep(3)
         print(f"X {agentX}  Y {agentY}")
-        print(f"X {agentTest.getX()}  Y {agentTest.getY()}")
+        print(f"X {self.agentTest.getX()}  Y {self.agentTest.getY()}")
         
-        self.assertEqual(agentTest.getX(), agentX + 1, "The agent should have moved to the right")
-        self.assertEqual(agentTest.getY(), agentY + 1, "The agent should have moved to the bottom")
+        self.assertEqual(self.agentTest.getX(), agentX + 1, "The agent should have moved to the right")
+        self.assertEqual(self.agentTest.getY(), agentY + 1, "The agent should have moved to the bottom")
             
-if __name__ == '__main__':
-    unittest.main()
+# if __name__ == '__main__':
+#     unittest.main()
 
-# agent = createAgent("toto")
-# agent2 = createAgent("totoLeRetour")
-# agent.update()
-# agent2.update()
-# i = 0
+agent = createAgent("toto")
+agent2 = createAgent("totoLeRetour")
+agent.update()
+agent2.update()
+i = 0
 
-# while True:
-#     agent.moveTowards(16,3)    
-#     i += 1
-#     agent2.moveTowards(16,4)    
+while True:
+    agent.moveTowards(14,3)    
+    i += 1
+    agent2.moveTowards(14,4)    
 
-#     sleep(1)
-#     agent.update()
-#     agent2.update()
+    sleep(1)
+    agent.update()
+    agent2.update()
     
 
 

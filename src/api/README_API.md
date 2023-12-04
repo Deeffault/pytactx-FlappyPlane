@@ -8,6 +8,8 @@ Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en
 - pour le joueur : 
     - Le joueur peut se déplacer dans l'arène.
     - Le joueur peut récupérer les obstacles sous la forme d'un tableau bidimensionnel. 
+    - Le joueur meurt lorsqu'il est poussé dans le mur de gauche.
+    - Le joueur subit des dégâts lorsqu'il touche le mur de droite.
 ## ✅ Pré-requis
 En tant que joueur vous aurez besoin de python 3.12 pour éxécuter le projet.
 ## ⚙️ Installation : 
