@@ -71,14 +71,23 @@ class TowerObstacle(IObstacle):
         #agent.ruleArena("mapFriction", mapFriction)
     def push_agents(self):
         for player in agent.range:
-            if agent.range[player]['x'] == self.x and (agent.range[player]['y'] < self.y or agent.range[player]['y'] >= (self.y + self.z)):
-                if self.x == 0:
-                    agent.rulePlayer(player, "life", 0)
-                else:
-                    agent.rulePlayer(player, "x", agent.range[player]['x'] - 1)
+            playerdata = agent.range[player]
+            if playerdata['x'] == self.x and (playerdata['y'] < self.y or playerdata['y'] >= (self.y + self.z)):
+                push_agent(player)
     
     def is_out_of_bound(self):
         return self.x < 0
+
+def push_agent(player):
+    playerdata = agent.range[player]
+    if playerdata['x'] == 0:
+        agent.rulePlayer(player, "life", 0)
+    else:
+        for player2 in agent.range:
+            playerdata2 = agent.range[player2]
+            if playerdata2['x'] == playerdata['x'] - 1 and playerdata2['y'] == playerdata['y']:
+                push_agent(player2)
+        agent.rulePlayer(player, "x", agent.range[player]['x'] - 1)
 
 COLUMNS = 16
 ROWS = 9
@@ -117,6 +126,9 @@ agent.ruleArena("mapImgs", [
 
 # Player texture array
 agent.ruleArena("pImgs", ["https://cdn.discordapp.com/attachments/1173930308039610378/1173931307613552661/Variant2.png"])
+
+# Collision dmg
+agent.ruleArena("hitCollision", [0])
 
 obstacles = []
 
