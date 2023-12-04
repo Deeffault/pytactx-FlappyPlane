@@ -45,6 +45,7 @@ class TowerObstacle(IObstacle):
         self.x = x
         self.y = y
         self.z = z
+        self.agents_scored = []
         
     def move(self):
         height_up = self.y
@@ -70,10 +71,28 @@ class TowerObstacle(IObstacle):
         agent.ruleArena("map", map)
         #agent.ruleArena("mapFriction", mapFriction)
     def push_agents(self):
+        # Calculate the score of the agents in the same column as the obstacle or push them
         for player in agent.range:
             playerdata = agent.range[player]
-            if playerdata['x'] == self.x and (playerdata['y'] < self.y or playerdata['y'] >= (self.y + self.z)):
+            if playerdata['x'] != self.x:
+                continue
+            if (playerdata['y'] < self.y or playerdata['y'] >= (self.y + self.z)):
                 push_agent(player)
+            else:
+                if player not in self.agents_scored:
+                    if player not in scores:
+                        scores[player] = 0
+                    print(f"{player}: {scores[player]} + 1")
+                    scores[player] += 1
+                    self.agents_scored.append(player)
+        
+        # Remove the agents that are not alive anymore
+        scored_players_to_remove = []
+        for player in self.agents_scored:
+            if player not in agent.range:
+                scored_players_to_remove.append(player)
+        for player in scored_players_to_remove:
+            self.agents_scored.remove(player)
     
     def is_out_of_bound(self):
         return self.x < 0
@@ -82,12 +101,40 @@ def push_agent(player):
     playerdata = agent.range[player]
     if playerdata['x'] == 0:
         agent.rulePlayer(player, "life", 0)
+        del scores[player]
     else:
         for player2 in agent.range:
             playerdata2 = agent.range[player2]
             if playerdata2['x'] == playerdata['x'] - 1 and playerdata2['y'] == playerdata['y']:
                 push_agent(player2)
         agent.rulePlayer(player, "x", agent.range[player]['x'] - 1)
+
+best_player_of_all_time = ""
+best_score_of_all_time = 0
+
+best_alive_player = ""
+best_alive_score = 0
+
+def update_best_scores():
+    global best_player_of_all_time
+    global best_score_of_all_time
+    global best_alive_player
+    global best_alive_score
+
+    best_alive_score = 0
+    best_alive_player = ""
+    for player in agent.range:
+        if player not in scores:
+            scores[player] = 0
+        if scores[player] > best_alive_score:
+            best_alive_score = scores[player]
+            best_alive_player = player
+    
+    if best_alive_score > best_score_of_all_time:
+        best_score_of_all_time = best_alive_score
+        best_player_of_all_time = best_alive_player
+    
+    agent.ruleArena("info", f"| 🏆 Best score of all time: {best_score_of_all_time} by {best_player_of_all_time or '🪦'} | 👑 Best score of the current game: {best_alive_score} by {best_alive_player or '🪦'}")
 
 COLUMNS = 16
 ROWS = 9
@@ -127,20 +174,37 @@ agent.ruleArena("mapImgs", [
 # Player texture array
 agent.ruleArena("pImgs", ["https://cdn.discordapp.com/attachments/1173930308039610378/1173931307613552661/Variant2.png"])
 
+# Players tick speed
+agent.ruleArena("speedIni", [1000, 1000, 1000, 1000])
+agent.ruleArena("speedMax", [1000, 1000, 1000, 1000])
+
 # Collision dmg
 agent.ruleArena("hitCollision", [0])
 
+# Disable score calculation using KD
+agent.ruleArena("score", "")
+
 obstacles = []
 
+scores = {}
+
+
+from time import time
 i = 0
+last_tick_time = time()
 # Main loop
 while True:
     # Get the game state
     from time import sleep
+    update_best_scores()
     agent.update()
-    sleep(1)
+    new_tick_time = time()
+    delta = new_tick_time - last_tick_time
+    sleep(max(1 - delta, 0))
+    print(delta)
+    last_tick_time = time()
     agent.update()
-    print([(obs.x, obs.y) for obs in obstacles])
+    #print([(obs.x, obs.y) for obs in obstacles])
     
     obstacles_to_delete = []
     for obstacle in obstacles:
@@ -159,9 +223,12 @@ while True:
     
     agent.moveTowards(0, 0)
     i+=1
+            
+    #for player in agent.range:
+    #    pass
+        
     
-    if "toto" in agent.range:
-        print("toto")
-        print(agent.range["toto"]['x'])
-        print(agent.range["toto"]['y'])
+    # if "toto" in scores:
+    #     print("toto")
+    #     print(scores["toto"])
     
