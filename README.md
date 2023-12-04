@@ -16,7 +16,7 @@ Si un joueur est touché par un obstacle, il meurt et obtient alors un score en 
 ## 📞 Diagramme de séquence :
 expliquer le déroulé d'une partie, les principales étapes à faire dans l'ordre et qui/quoi/comment, les couches s'échangent quelles données pour qui/pour quoi, et l'architecture matérielle
 ## ✅ Pré-requis
-En tant qu'administrateur vous aurez besoin de python 3.12 pour éxécuter le projet.
+En tant qu'administrateur vous aurez besoin de python 3.12 pour exécuter le projet.
 Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](api/README_API.md) à la place
 ## ⚙️ Installation :
 step by step (commandes à executer par l'administrateur, paquets à installer ...)
