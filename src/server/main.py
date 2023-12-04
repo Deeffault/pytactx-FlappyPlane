@@ -64,13 +64,18 @@ class TowerObstacle(IObstacle):
                 elif i < self.y:
                     map[i][self.x] = 5 + min(i, 3) if self.y >= 4 else 5 + i + (4 - self.y)
                 else:
-                    map[i][self.x] = min(i, 3) + 1
+                    map[i][self.x] = (min(ROWS - i - 1, 3) + 1) if ROWS - self.y - self.z >= 4 else (ROWS - i - 1 + (4 - ROWS + self.y + self.z) + 1)
                 #mapFriction[i][self.x] = 0 if i == self.y else 1
                 
         agent.ruleArena("map", map)
         #agent.ruleArena("mapFriction", mapFriction)
     def push_agents(self):
-        pass
+        for player in agent.range:
+            if agent.range[player]['x'] == self.x and (agent.range[player]['y'] < self.y or agent.range[player]['y'] >= (self.y + self.z)):
+                if self.x == 0:
+                    agent.rulePlayer(player, "life", 0)
+                else:
+                    agent.rulePlayer(player, "x", agent.range[player]['x'] - 1)
     
     def is_out_of_bound(self):
         return self.x < 0
@@ -94,7 +99,7 @@ map = [[0 for x in range(COLUMNS)] for y in range(ROWS)]
 agent.ruleArena("map", map)
 
 # Map collision array
-mapFriction = [[0 for x in range(COLUMNS)] for y in range(ROWS)]
+mapFriction = [0, 1, 1, 1, 1, 1, 1, 1, 1]
 agent.ruleArena("mapFriction", mapFriction)
 
 # Map texture array
@@ -120,6 +125,7 @@ i = 0
 while True:
     # Get the game state
     from time import sleep
+    agent.update()
     sleep(1)
     agent.update()
     print([(obs.x, obs.y) for obs in obstacles])
@@ -129,6 +135,8 @@ while True:
         obstacle.move()
         if obstacle.is_out_of_bound():
             obstacles_to_delete.append(obstacle)
+        else:
+            obstacle.push_agents()
     
     for obstacle in obstacles_to_delete:
         obstacles.remove(obstacle)
@@ -140,4 +148,8 @@ while True:
     agent.moveTowards(0, 0)
     i+=1
     
+    if "toto" in agent.range:
+        print("toto")
+        print(agent.range["toto"]['x'])
+        print(agent.range["toto"]['y'])
     
