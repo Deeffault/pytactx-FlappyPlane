@@ -171,15 +171,21 @@ agent.ruleArena("mapImgs", [
     "https://cdn.discordapp.com/attachments/1173930308039610378/1174012157491425361/Reverse-Tower_4.png"
 ])
 
+# Map breakable array
+agent.ruleArena("mapBreakable", [False for i in range(9)])
+
+# Map breakable array
+agent.ruleArena("mapHit", [0 for i in range(9)])
+
 # Player texture array
 agent.ruleArena("pImgs", ["https://cdn.discordapp.com/attachments/1173930308039610378/1173931307613552661/Variant2.png"])
 
 # Players tick speed
-agent.ruleArena("speedIni", [1000, 1000, 1000, 1000])
-agent.ruleArena("speedMax", [1000, 1000, 1000, 1000])
+# agent.ruleArena("speedIni", [1000, 1000, 1000, 1000])
+# agent.ruleArena("speedMax", [1000, 1000, 1000, 1000])
 
 # Collision dmg
-agent.ruleArena("hitCollision", [0])
+agent.ruleArena("hitCollision", [0, 0, 0, 0, 0])
 
 # Disable score calculation using KD
 agent.ruleArena("score", "")
