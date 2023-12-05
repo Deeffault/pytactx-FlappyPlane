@@ -16,6 +16,7 @@ sys.path.append("src/")
 import api.j2l.pytactx.agent as pytactx
 from abc import ABC, abstractmethod
 import time
+from random import randint
 
 # Create the agent
 agent = pytactx.Agent(playerId=ARBITRE_USERNAME,
@@ -212,22 +213,13 @@ for agentId in agents.keys():
 
 agent.setColor(255, 255, 0)
 
-from time import time
 i = 0
-last_tick_time = time()
+last_tick_time = time.time()
 # Main loop
 while True:
     # Get the game state
-    from time import sleep
     update_best_scores()
-    #agent.update()
-    #new_tick_time = time()
-    #delta = new_tick_time - last_tick_time
-    #sleep(max(0.25 - delta, 0))
-    #print(delta)
-    #last_tick_time = time()
     agent.update()
-    #print([(obs.x, obs.y) for obs in obstacles])
     
     obstacles_to_delete = []
     for obstacle in obstacles:
@@ -242,18 +234,8 @@ while True:
     for obstacle in obstacles_to_delete:
         obstacles.remove(obstacle)
     
-    from random import randint
     if i % 4 == 0:
         obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
     
     agent.moveTowards(0, 0)
-    i+=1
-            
-    #for player in agent.range:
-    #    pass
-        
-    
-    # if "toto" in scores:
-    #     print("toto")
-    #     print(scores["toto"])
-    
+    i+=1    
