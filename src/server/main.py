@@ -50,15 +50,10 @@ class TowerObstacle(IObstacle):
         self.agents_scored = []
         
     def move(self):
-        height_up = self.y
-        height_down = ROWS - self.y - self.z
-        
         global map
-        #global mapFriction
         if self.x >= 0 and self.x < COLUMNS:
             for i in range(ROWS):
                 map[i][self.x] = 0
-                #mapFriction[i][self.x] = 0
         self.x -= 1
         if self.x >= 0 and self.x < COLUMNS:
             for i in range(ROWS):
@@ -68,10 +63,9 @@ class TowerObstacle(IObstacle):
                     map[i][self.x] = 5 + min(i, 3) if self.y >= 4 else 5 + i + (4 - self.y)
                 else:
                     map[i][self.x] = (min(ROWS - i - 1, 3) + 1) if ROWS - self.y - self.z >= 4 else (ROWS - i - 1 + (4 - ROWS + self.y + self.z) + 1)
-                #mapFriction[i][self.x] = 0 if i == self.y else 1
                 
         agent.ruleArena("map", map)
-        #agent.ruleArena("mapFriction", mapFriction)
+        
     def push_agents(self):
         # Calculate the score of the agents in the same column as the obstacle or push them
         for player in agent.range:
@@ -190,6 +184,10 @@ agent.ruleArena("hitCollision", [0, 0, 0, 0, 0])
 
 # Disable score calculation using KD
 agent.ruleArena("score", "")
+
+# Make players immobile
+agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
+agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
 
 obstacles = []
 
