@@ -42,6 +42,22 @@ class IObstacle(ABC):
         """returns whether the obstacle is out of bound or not so that it can be removed from the game"""
         pass
     
+    @classmethod
+    def tick(cls):
+        obstacles_to_delete = []
+        for obstacle in obstacles:
+            obstacle.move()
+            if obstacle.is_out_of_bound():
+                obstacles_to_delete.append(obstacle)
+            else:
+                obstacle.push_agents()
+        
+        for obstacle in obstacles_to_delete:
+            obstacles.remove(obstacle)
+        
+        if i % 4 == 0:
+            obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
+
 class TowerObstacle(IObstacle):
     def __init__(self, x, y, z):
         self.x = x
@@ -63,7 +79,6 @@ class TowerObstacle(IObstacle):
                     map[i][self.x] = 5 + min(i, 3) if self.y >= 4 else 5 + i + (4 - self.y)
                 else:
                     map[i][self.x] = (min(ROWS - i - 1, 3) + 1) if ROWS - self.y - self.z >= 4 else (ROWS - i - 1 + (4 - ROWS + self.y + self.z) + 1)
-                
         agent.ruleArena("map", map)
         
     def push_agents(self):
@@ -132,6 +147,24 @@ def update_best_scores():
     
     agent.ruleArena("info", f"| 🏆 Best score of all time: {best_score_of_all_time} by {best_player_of_all_time or '💀'} | 👑 Best score of the current game: {best_alive_score} by {best_alive_player or '💀'}")
 
+def process_agents_move():
+    for player in agent.range:
+        playerdata = agent.range[player]
+        if playerdata['life'] <= 0:
+            continue
+        if playerdata['led'][0] != 0 or playerdata['led'][1] != 0:
+            n_pos = [playerdata['x'], playerdata['y']]
+            if playerdata['led'][0] != 0:
+                n_pos[0] += (1 if playerdata['led'][0] >= 2 else -1)
+            if playerdata['led'][1] != 0:
+                n_pos[1] += (1 if playerdata['led'][1] >= 2 else -1)
+            if n_pos[0] < 0 or n_pos[0] >= COLUMNS or n_pos[1] < 0 or n_pos[1] >= ROWS:
+                continue
+            if map[n_pos[1]][n_pos[0]] == 0:
+                agent.rulePlayer(player, "x", n_pos[0])
+                agent.rulePlayer(player, "y", n_pos[1])
+                agent.rulePlayer(player, "led", [0, 0, time.time()])
+
 COLUMNS = 16
 ROWS = 9
 
@@ -187,7 +220,7 @@ agent.ruleArena("score", "")
 
 # Make players immobile
 agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
-agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
+agent.ruleArena("dyMax", [0, 100, 0, 0, 0])
 
 obstacles = []
 
@@ -216,24 +249,13 @@ last_tick_time = time.time()
 # Main loop
 while True:
     # Get the game state
-    update_best_scores()
+    agent.update()
+    time.sleep(.5)
     agent.update()
     
-    obstacles_to_delete = []
-    for obstacle in obstacles:
-        if not obstacle.is_out_of_bound():
-            obstacle.push_agents()
-        obstacle.move()
-        if obstacle.is_out_of_bound():
-            obstacles_to_delete.append(obstacle)
-        else:
-            obstacle.push_agents()
-    
-    for obstacle in obstacles_to_delete:
-        obstacles.remove(obstacle)
-    
-    if i % 4 == 0:
-        obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
+    IObstacle.tick()
+    process_agents_move()
+    update_best_scores()
     
     agent.moveTowards(0, 0)
     i+=1    
