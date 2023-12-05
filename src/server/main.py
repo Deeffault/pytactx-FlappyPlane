@@ -42,14 +42,53 @@ class IObstacle(ABC):
         """returns whether the obstacle is out of bound or not so that it can be removed from the game"""
         pass
     
+    @classmethod
+    def tick(cls):
+        """
+        Perform a game tick, updating the positions of obstacles and removing obstacles that are out of bounds.
+        """
+        obstacles_to_delete = []
+        for obstacle in obstacles:
+            obstacle.move()
+            if obstacle.is_out_of_bound():
+                obstacles_to_delete.append(obstacle)
+            else:
+                obstacle.push_agents()
+        
+        for obstacle in obstacles_to_delete:
+            obstacles.remove(obstacle)
+        
+        if tick_count % 4 == 0:
+            obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
+
 class TowerObstacle(IObstacle):
     def __init__(self, x, y, z):
+        """
+        Initialize the Obstacle object.
+
+        Args:
+            x (int): The x-coordinate of the obstacle.
+            y (int): The y-coordinate of the obstacle.
+            z (int): The z-coordinate of the obstacle.
+        """
         self.x = x
         self.y = y
         self.z = z
         self.agents_scored = []
         
     def move(self):
+        """
+        Moves the obstacle to the left by one unit.
+
+        This method updates the obstacle's position on the map by decrementing the x-coordinate by 1.
+        It also updates the map accordingly, clearing the previous position and updating the new position.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         global map
         if self.x >= 0 and self.x < COLUMNS:
             for i in range(ROWS):
@@ -63,11 +102,16 @@ class TowerObstacle(IObstacle):
                     map[i][self.x] = 5 + min(i, 3) if self.y >= 4 else 5 + i + (4 - self.y)
                 else:
                     map[i][self.x] = (min(ROWS - i - 1, 3) + 1) if ROWS - self.y - self.z >= 4 else (ROWS - i - 1 + (4 - ROWS + self.y + self.z) + 1)
-                
         agent.ruleArena("map", map)
         
     def push_agents(self):
-        # Calculate the score of the agents in the same column as the obstacle or push them
+        """
+        Pushes the agents in the same column as the obstacle or calculates their score.
+
+        This method iterates through the agents and checks if they are in the same column as the obstacle.
+        If they are, it either pushes them or calculates their score based on their position relative to the obstacle.
+        It also removes agents that are no longer alive from the list of scored agents.
+        """
         for player in agent.range:
             playerdata = agent.range[player]
             if playerdata['x'] != self.x:
@@ -81,8 +125,7 @@ class TowerObstacle(IObstacle):
                     print(f"{player}: {scores[player]} + 1")
                     scores[player] += 1
                     self.agents_scored.append(player)
-        
-        # Remove the agents that are not alive anymore
+
         scored_players_to_remove = []
         for player in self.agents_scored:
             if player not in agent.range:
@@ -91,9 +134,23 @@ class TowerObstacle(IObstacle):
             self.agents_scored.remove(player)
     
     def is_out_of_bound(self):
-        return self.x < 0
+            """
+            Check if the object is out of bounds.
+
+            Returns:
+                bool: True if the object is out of bounds, False otherwise.
+            """
+            return self.x < 0
 
 def push_agent(player):
+    """
+    Pushes the agent/player to the left by decreasing its x-coordinate.
+    If the agent/player reaches the leftmost position (x=0), it is considered dead and its life is set to 0.
+    If there is another agent/player in the adjacent left position, the push_agent function is recursively called for that agent/player.
+    
+    Parameters:
+        player (str): The identifier of the agent/player to be pushed.
+    """
     playerdata = agent.range[player]
     if playerdata['x'] == 0:
         agent.rulePlayer(player, "life", 0)
@@ -112,6 +169,19 @@ best_alive_player = ""
 best_alive_score = 0
 
 def update_best_scores():
+    """
+    Update the best scores and best players of all time and the current game.
+
+    This function iterates through the players in the agent's range and updates the best alive score and player.
+    It also updates the best score of all time and the best player of all time if the current best alive score is greater.
+    Finally, it prints the information about the best scores and players.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+    """
     global best_player_of_all_time
     global best_score_of_all_time
     global best_alive_player
@@ -131,6 +201,53 @@ def update_best_scores():
         best_player_of_all_time = best_alive_player
     
     agent.ruleArena("info", f"| 🏆 Best score of all time: {best_score_of_all_time} by {best_player_of_all_time or '💀'} | 👑 Best score of the current game: {best_alive_score} by {best_alive_player or '💀'}")
+
+def process_agents_move():
+    """
+    Process the moves of the agents.
+
+    This function iterates over each player in the agent range and updates their position based on the LED values.
+    If the player's life is less than or equal to 0, the player is skipped.
+    If the LED values are not both 0, the player's position is updated accordingly.
+    If the new position is out of bounds, the player is skipped.
+    If the new position is valid (map[n_pos[1]][n_pos[0]] == 0), the player's x, y, and LED values are updated.
+    """
+    for player in agent.range:
+        playerdata = agent.range[player]
+        if playerdata['life'] > 0 and (playerdata['led'][0] not in (0, 2) or playerdata['led'][1] not in (0, 2)):
+            n_pos = [playerdata['x'], playerdata['y']]
+            if playerdata['led'][0] not in (0, 2):
+                n_pos[0] += (1 if playerdata['led'][0] >= 2 else -1)
+            if playerdata['led'][1] not in (0, 2):
+                n_pos[1] += (1 if playerdata['led'][1] >= 2 else -1)
+            if n_pos[0] < 0 or n_pos[0] >= COLUMNS or n_pos[1] < 0 or n_pos[1] >= ROWS:
+                print('hit map borders')
+                continue
+            met_someone = False
+            for player2 in agent.range:
+                if player == player2:
+                    continue
+                playerdata2 = agent.range[player2]
+                if playerdata2['x'] == n_pos[0] and playerdata2['y'] == n_pos[1]:
+                    met_someone = True
+                    break
+            if met_someone:
+                print('hit someone')
+                continue
+            if map[n_pos[1]][n_pos[0]] == 0:
+                print(n_pos)
+                agent.rulePlayer(player, "x", n_pos[0])
+                agent.rulePlayer(player, "y", n_pos[1])
+        agent.rulePlayer(player, "color", [0, 0, tick_count%100])
+
+def process_agent_respawn():
+    for player in agent.range:
+        playerdata = agent.range[player]
+        if playerdata['life'] <= 0:
+            agent.rulePlayer(player, "life", 100)
+            agent.rulePlayer(player, "x", 1)
+            agent.rulePlayer(player, "y", 2)
+            agent.rulePlayer(player, "dir", 2)
 
 COLUMNS = 16
 ROWS = 9
@@ -187,7 +304,7 @@ agent.ruleArena("score", "")
 
 # Make players immobile
 agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
-agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
+agent.ruleArena("dyMax", [0, 100, 0, 0, 0])
 
 obstacles = []
 
@@ -207,33 +324,37 @@ for agentId in agents.keys():
     agent.rulePlayer(agentId, "x", posX)
     agent.rulePlayer(agentId, "y", posY)
     agent.rulePlayer(agentId, "dir", 2)
+    agent.rulePlayer(agentId, "led", [0, 0, time.time()])
     posY+=2
 
 agent.setColor(255, 255, 0)
 
-i = 0
+tick_count = 0
 last_tick_time = time.time()
 # Main loop
 while True:
     # Get the game state
-    update_best_scores()
     agent.update()
+    time.sleep(.5)
+    agent.update()
+
+    if "totoISBACK" in agent.range:
+        print('== 1 ==')
+        print(agent.range["totoISBACK"]["led"])
+        print(agent.range["totoISBACK"]["x"])
+        print(agent.range["totoISBACK"]["y"])
     
-    obstacles_to_delete = []
-    for obstacle in obstacles:
-        if not obstacle.is_out_of_bound():
-            obstacle.push_agents()
-        obstacle.move()
-        if obstacle.is_out_of_bound():
-            obstacles_to_delete.append(obstacle)
-        else:
-            obstacle.push_agents()
+    IObstacle.tick()
+    process_agents_move()
+    update_best_scores()
     
-    for obstacle in obstacles_to_delete:
-        obstacles.remove(obstacle)
     
-    if i % 4 == 0:
-        obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
+    if "totoISBACK" in agent.range:
+        print('== 2 ==')
+        print(agent.range["totoISBACK"]["led"])
+        print(agent.range["totoISBACK"]["x"])
+        print(agent.range["totoISBACK"]["y"])
     
     agent.moveTowards(0, 0)
-    i+=1    
+    tick_count+=1
+

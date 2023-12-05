@@ -39,8 +39,12 @@ class TestTowerObstacle(unittest.TestCase):
     """
 
     def setUp(self):
+        """
+        Set up the test environment before each test case.
+        """
         self.agent = createAgent("07012003")  
         self.agentTest = createAgent("toto")
+
         self.agent.update()  
         self.agentTest.update
         sleep(3)

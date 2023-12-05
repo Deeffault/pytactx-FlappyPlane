@@ -41,13 +41,28 @@ class IPlane (ABC):
     
 class Plane(IPlane):
     def __init__(self, playerId:str or None=None, arena:str or None=None, username:str or None=None, password:str or None=None, server:str or None=None) -> None:
-        self.__agent = pytactx.Agent(playerId, arena, username, password, server, verbosity=2)
-        self.__last_tick = None
+            """
+            Initializes a new instance of the FlappyPlane class.
+
+            Args:
+                playerId (str or None): The ID of the player. Defaults to None.
+                arena (str or None): The name of the arena. Defaults to None.
+                username (str or None): The username for authentication. Defaults to None.
+                password (str or None): The password for authentication. Defaults to None.
+                server (str or None): The server address. Defaults to None.
+            """
+            self.__agent = pytactx.Agent(playerId, arena, username, password, server, verbosity=2)
 
     def update(self) -> None:
-        while self.__agent.color[2] == self.__last_tick:
-            self.__agent.update()
-        self.__last_tick = self.__agent.color[2]
+        """
+        Updates the state of the FlappyPlane game.
+
+        This method is responsible for updating the agent's state and performing any necessary game logic.
+
+        Returns:
+            None
+        """
+        self.__agent.update()
 
     def move(self, px, py) -> None:
         '''
@@ -62,12 +77,30 @@ class Plane(IPlane):
         self.__agent.setColor(px+2, py+2 , self.__agent.color[2])
 
     def getX(self) -> int:
-        return self.__agent.x
+            """
+            Get the x-coordinate of the agent.
+
+            Returns:
+                int: The x-coordinate of the agent.
+            """
+            return self.__agent.x
 
     def getY(self) -> int:
-        return self.__agent.y
+            """
+            Get the y-coordinate of the agent.
+
+            Returns:
+                int: The y-coordinate of the agent.
+            """
+            return self.__agent.y
     
     def getMap(self) -> tuple[tuple[int]]:
+        """
+        Returns the map of the FlappyPlane game.
+
+        Returns:
+            tuple[tuple[int]]: The map of the game, represented as a 2D tuple of integers.
+        """
         return self.__agent.map
 
     
