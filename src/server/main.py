@@ -64,12 +64,12 @@ class IObstacle(ABC):
 class TowerObstacle(IObstacle):
     def __init__(self, x, y, z):
         """
-        Initialize the Agent object.
+        Initialize the Obstacle object.
 
         Args:
-            x (int): The x-coordinate of the agent.
-            y (int): The y-coordinate of the agent.
-            z (int): The z-coordinate of the agent.
+            x (int): The x-coordinate of the obstacle.
+            y (int): The y-coordinate of the obstacle.
+            z (int): The z-coordinate of the obstacle.
         """
         self.x = x
         self.y = y
@@ -78,9 +78,9 @@ class TowerObstacle(IObstacle):
         
     def move(self):
         """
-        Moves the agent to the left by one unit.
+        Moves the obstacle to the left by one unit.
 
-        This method updates the agent's position on the map by decrementing the x-coordinate by 1.
+        This method updates the agobstacle's position on the map by decrementing the x-coordinate by 1.
         It also updates the map accordingly, clearing the previous position and updating the new position.
 
         Parameters:
