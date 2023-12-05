@@ -14,7 +14,7 @@ class IPlane (ABC):
         """
         Moves the plane according to the px,py parameters
         With px, py between -1 and 1
-        
+        Send the request to the server, and the server moves the plane
         """
         pass
 
@@ -38,7 +38,7 @@ class IPlane (ABC):
         Returns the arena's map
         """
         pass
-
+    
 class Plane(IPlane):
     def __init__(self, playerId:str or None=None, arena:str or None=None, username:str or None=None, password:str or None=None, server:str or None=None) -> None:
         self.__agent = pytactx.Agent(playerId, arena, username, password, server, verbosity=2)
@@ -47,7 +47,14 @@ class Plane(IPlane):
         self.__agent.update()
 
     def move(self, px, py) -> None:
-        self.__agent.move(px, py)
+        '''
+        0 ne bouge pas
+        1 recule
+        2+ avance
+        '''
+        px //= abs(px)
+        py //= abs(py)
+        self.__agent.setColor(px+2, py+2 , 0)
 
     def getX(self) -> int:
         return self.__agent.x
@@ -57,8 +64,5 @@ class Plane(IPlane):
     
     def getMap(self) -> tuple[tuple[int]]:
         return self.__agent.map
-
-    def moveTowards(self, x, y):
-        return self.__agent.moveTowards(x,y)
 
     

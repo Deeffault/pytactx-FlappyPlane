@@ -40,8 +40,9 @@ class TestFlappyPlane(unittest.TestCase):
     def setUp(self):
         self.agentTest = createAgent("toto")  
         self.agentTest.update()  
+        sleep(3)
 
-    def test_move(self):
+    def testMove(self):
         agentX = self.agentTest.getX()
         agentY = self.agentTest.getY()
         print(f"X {agentX}  Y {agentY}")
@@ -70,11 +71,10 @@ agent2.update()
 i = 0
 
 while True:
-    agent.moveTowards(14,3)    
+    agent.move(-1,0)    
     i += 1
-    agent2.moveTowards(14,4)    
+    agent2.move(-1,0)    
 
-    sleep(1)
     agent.update()
     agent2.update()
     
