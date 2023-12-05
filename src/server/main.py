@@ -80,7 +80,7 @@ class TowerObstacle(IObstacle):
         """
         Moves the obstacle to the left by one unit.
 
-        This method updates the agobstacle's position on the map by decrementing the x-coordinate by 1.
+        This method updates the obstacle's position on the map by decrementing the x-coordinate by 1.
         It also updates the map accordingly, clearing the previous position and updating the new position.
 
         Parameters:
