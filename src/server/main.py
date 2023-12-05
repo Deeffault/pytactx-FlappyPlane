@@ -44,6 +44,9 @@ class IObstacle(ABC):
     
     @classmethod
     def tick(cls):
+        """
+        Perform a game tick, updating the positions of obstacles and removing obstacles that are out of bounds.
+        """
         obstacles_to_delete = []
         for obstacle in obstacles:
             obstacle.move()
@@ -60,12 +63,32 @@ class IObstacle(ABC):
 
 class TowerObstacle(IObstacle):
     def __init__(self, x, y, z):
+        """
+        Initialize the Obstacle object.
+
+        Args:
+            x (int): The x-coordinate of the obstacle.
+            y (int): The y-coordinate of the obstacle.
+            z (int): The z-coordinate of the obstacle.
+        """
         self.x = x
         self.y = y
         self.z = z
         self.agents_scored = []
         
     def move(self):
+        """
+        Moves the obstacle to the left by one unit.
+
+        This method updates the obstacle's position on the map by decrementing the x-coordinate by 1.
+        It also updates the map accordingly, clearing the previous position and updating the new position.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         global map
         if self.x >= 0 and self.x < COLUMNS:
             for i in range(ROWS):
@@ -82,7 +105,13 @@ class TowerObstacle(IObstacle):
         agent.ruleArena("map", map)
         
     def push_agents(self):
-        # Calculate the score of the agents in the same column as the obstacle or push them
+        """
+        Pushes the agents in the same column as the obstacle or calculates their score.
+
+        This method iterates through the agents and checks if they are in the same column as the obstacle.
+        If they are, it either pushes them or calculates their score based on their position relative to the obstacle.
+        It also removes agents that are no longer alive from the list of scored agents.
+        """
         for player in agent.range:
             playerdata = agent.range[player]
             if playerdata['x'] != self.x:
@@ -96,8 +125,7 @@ class TowerObstacle(IObstacle):
                     print(f"{player}: {scores[player]} + 1")
                     scores[player] += 1
                     self.agents_scored.append(player)
-        
-        # Remove the agents that are not alive anymore
+
         scored_players_to_remove = []
         for player in self.agents_scored:
             if player not in agent.range:
@@ -106,9 +134,23 @@ class TowerObstacle(IObstacle):
             self.agents_scored.remove(player)
     
     def is_out_of_bound(self):
-        return self.x < 0
+            """
+            Check if the object is out of bounds.
+
+            Returns:
+                bool: True if the object is out of bounds, False otherwise.
+            """
+            return self.x < 0
 
 def push_agent(player):
+    """
+    Pushes the agent/player to the left by decreasing its x-coordinate.
+    If the agent/player reaches the leftmost position (x=0), it is considered dead and its life is set to 0.
+    If there is another agent/player in the adjacent left position, the push_agent function is recursively called for that agent/player.
+    
+    Parameters:
+        player (str): The identifier of the agent/player to be pushed.
+    """
     playerdata = agent.range[player]
     if playerdata['x'] == 0:
         agent.rulePlayer(player, "life", 0)
@@ -127,6 +169,19 @@ best_alive_player = ""
 best_alive_score = 0
 
 def update_best_scores():
+    """
+    Update the best scores and best players of all time and the current game.
+
+    This function iterates through the players in the agent's range and updates the best alive score and player.
+    It also updates the best score of all time and the best player of all time if the current best alive score is greater.
+    Finally, it prints the information about the best scores and players.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+    """
     global best_player_of_all_time
     global best_score_of_all_time
     global best_alive_player
@@ -148,6 +203,15 @@ def update_best_scores():
     agent.ruleArena("info", f"| 🏆 Best score of all time: {best_score_of_all_time} by {best_player_of_all_time or '💀'} | 👑 Best score of the current game: {best_alive_score} by {best_alive_player or '💀'}")
 
 def process_agents_move():
+    """
+    Process the moves of the agents.
+
+    This function iterates over each player in the agent range and updates their position based on the LED values.
+    If the player's life is less than or equal to 0, the player is skipped.
+    If the LED values are not both 0, the player's position is updated accordingly.
+    If the new position is out of bounds, the player is skipped.
+    If the new position is valid (map[n_pos[1]][n_pos[0]] == 0), the player's x, y, and LED values are updated.
+    """
     for player in agent.range:
         playerdata = agent.range[player]
         if playerdata['life'] > 0 and (playerdata['led'][0] not in (0, 2) or playerdata['led'][1] not in (0, 2)):

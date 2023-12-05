@@ -38,11 +38,20 @@ class TestFlappyPlane(unittest.TestCase):
 
     
     def setUp(self):
+        """
+        Set up the test environment before each test case.
+        """
         self.agentTest = createAgent("toto")  
         self.agentTest.update()  
         sleep(3)
 
     def testMove(self):
+        """
+        Test case for the move() method of the agent.
+
+        This test verifies that the agent correctly updates its position after calling the move() method.
+        It checks if the agent's X and Y coordinates are updated correctly after moving to the right and bottom.
+        """
         agentX = self.agentTest.getX()
         agentY = self.agentTest.getY()
         print(f"X {agentX}  Y {agentY}")
