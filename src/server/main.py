@@ -16,6 +16,7 @@ sys.path.append("src/")
 import api.j2l.pytactx.agent as pytactx
 from abc import ABC, abstractmethod
 import time
+from random import randint
 
 # Create the agent
 agent = pytactx.Agent(playerId=ARBITRE_USERNAME,
@@ -49,15 +50,10 @@ class TowerObstacle(IObstacle):
         self.agents_scored = []
         
     def move(self):
-        height_up = self.y
-        height_down = ROWS - self.y - self.z
-        
         global map
-        #global mapFriction
         if self.x >= 0 and self.x < COLUMNS:
             for i in range(ROWS):
                 map[i][self.x] = 0
-                #mapFriction[i][self.x] = 0
         self.x -= 1
         if self.x >= 0 and self.x < COLUMNS:
             for i in range(ROWS):
@@ -67,10 +63,9 @@ class TowerObstacle(IObstacle):
                     map[i][self.x] = 5 + min(i, 3) if self.y >= 4 else 5 + i + (4 - self.y)
                 else:
                     map[i][self.x] = (min(ROWS - i - 1, 3) + 1) if ROWS - self.y - self.z >= 4 else (ROWS - i - 1 + (4 - ROWS + self.y + self.z) + 1)
-                #mapFriction[i][self.x] = 0 if i == self.y else 1
                 
         agent.ruleArena("map", map)
-        #agent.ruleArena("mapFriction", mapFriction)
+        
     def push_agents(self):
         # Calculate the score of the agents in the same column as the obstacle or push them
         for player in agent.range:
@@ -190,6 +185,10 @@ agent.ruleArena("hitCollision", [0, 0, 0, 0, 0])
 # Disable score calculation using KD
 agent.ruleArena("score", "")
 
+# Make players immobile
+agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
+agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
+
 obstacles = []
 
 scores = {}
@@ -212,22 +211,13 @@ for agentId in agents.keys():
 
 agent.setColor(255, 255, 0)
 
-from time import time
 i = 0
-last_tick_time = time()
+last_tick_time = time.time()
 # Main loop
 while True:
     # Get the game state
-    from time import sleep
     update_best_scores()
-    #agent.update()
-    #new_tick_time = time()
-    #delta = new_tick_time - last_tick_time
-    #sleep(max(0.25 - delta, 0))
-    #print(delta)
-    #last_tick_time = time()
     agent.update()
-    #print([(obs.x, obs.y) for obs in obstacles])
     
     obstacles_to_delete = []
     for obstacle in obstacles:
@@ -242,18 +232,8 @@ while True:
     for obstacle in obstacles_to_delete:
         obstacles.remove(obstacle)
     
-    from random import randint
     if i % 4 == 0:
         obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
     
     agent.moveTowards(0, 0)
-    i+=1
-            
-    #for player in agent.range:
-    #    pass
-        
-    
-    # if "toto" in scores:
-    #     print("toto")
-    #     print(scores["toto"])
-    
+    i+=1    
