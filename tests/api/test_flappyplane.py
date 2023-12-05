@@ -64,17 +64,16 @@ class TestFlappyPlane(unittest.TestCase):
 # if __name__ == '__main__':
 #     unittest.main()
 
-agent = createAgent("toto")
-agent2 = createAgent("totoLeRetour")
+agent = createAgent("totoISBACK")
+agent2 = createAgent("totoLeRetour2")
 agent.update()
 agent2.update()
 i = 0
 
 while True:
-    agent.move(-1,0)    
-    i += 1
-    agent2.move(-1,0)    
-
+    agent.move(1,0)    
+    agent2.move(1,0)  
+    
     agent.update()
     agent2.update()
     

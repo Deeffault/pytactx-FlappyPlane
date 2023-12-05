@@ -42,19 +42,24 @@ class IPlane (ABC):
 class Plane(IPlane):
     def __init__(self, playerId:str or None=None, arena:str or None=None, username:str or None=None, password:str or None=None, server:str or None=None) -> None:
         self.__agent = pytactx.Agent(playerId, arena, username, password, server, verbosity=2)
+        self.__last_tick = None
 
     def update(self) -> None:
-        self.__agent.update()
+        while self.__agent.color[2] == self.__last_tick:
+            self.__agent.update()
+        self.__last_tick = self.__agent.color[2]
 
     def move(self, px, py) -> None:
         '''
-        0 ne bouge pas
-        1 recule
-        2+ avance
+        0 doesn't move
+        1 move backward
+        2+ move forward
         '''
-        px //= abs(px)
-        py //= abs(py)
-        self.__agent.setColor(px+2, py+2 , 0)
+        if px != 0:
+            px //= abs(px)
+        if py != 0:
+            py //= abs(py)
+        self.__agent.setColor(px+2, py+2 , self.__agent.color[2])
 
     def getX(self) -> int:
         return self.__agent.x
