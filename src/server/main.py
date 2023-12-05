@@ -55,7 +55,7 @@ class IObstacle(ABC):
         for obstacle in obstacles_to_delete:
             obstacles.remove(obstacle)
         
-        if i % 4 == 0:
+        if tick_count % 4 == 0:
             obstacles.append(TowerObstacle(COLUMNS, randint(0, ROWS - 2), 2))
 
 class TowerObstacle(IObstacle):
@@ -150,20 +150,40 @@ def update_best_scores():
 def process_agents_move():
     for player in agent.range:
         playerdata = agent.range[player]
-        if playerdata['life'] <= 0:
-            continue
-        if playerdata['led'][0] != 0 or playerdata['led'][1] != 0:
+        if playerdata['life'] > 0 and (playerdata['led'][0] not in (0, 2) or playerdata['led'][1] not in (0, 2)):
             n_pos = [playerdata['x'], playerdata['y']]
-            if playerdata['led'][0] != 0:
+            if playerdata['led'][0] not in (0, 2):
                 n_pos[0] += (1 if playerdata['led'][0] >= 2 else -1)
-            if playerdata['led'][1] != 0:
+            if playerdata['led'][1] not in (0, 2):
                 n_pos[1] += (1 if playerdata['led'][1] >= 2 else -1)
             if n_pos[0] < 0 or n_pos[0] >= COLUMNS or n_pos[1] < 0 or n_pos[1] >= ROWS:
+                print('hit map borders')
+                continue
+            met_someone = False
+            for player2 in agent.range:
+                if player == player2:
+                    continue
+                playerdata2 = agent.range[player2]
+                if playerdata2['x'] == n_pos[0] and playerdata2['y'] == n_pos[1]:
+                    met_someone = True
+                    break
+            if met_someone:
+                print('hit someone')
                 continue
             if map[n_pos[1]][n_pos[0]] == 0:
+                print(n_pos)
                 agent.rulePlayer(player, "x", n_pos[0])
                 agent.rulePlayer(player, "y", n_pos[1])
-                agent.rulePlayer(player, "led", [0, 0, time.time()])
+        agent.rulePlayer(player, "color", [0, 0, tick_count%100])
+
+def process_agent_respawn():
+    for player in agent.range:
+        playerdata = agent.range[player]
+        if playerdata['life'] <= 0:
+            agent.rulePlayer(player, "life", 100)
+            agent.rulePlayer(player, "x", 1)
+            agent.rulePlayer(player, "y", 2)
+            agent.rulePlayer(player, "dir", 2)
 
 COLUMNS = 16
 ROWS = 9
@@ -240,11 +260,12 @@ for agentId in agents.keys():
     agent.rulePlayer(agentId, "x", posX)
     agent.rulePlayer(agentId, "y", posY)
     agent.rulePlayer(agentId, "dir", 2)
+    agent.rulePlayer(agentId, "led", [0, 0, time.time()])
     posY+=2
 
 agent.setColor(255, 255, 0)
 
-i = 0
+tick_count = 0
 last_tick_time = time.time()
 # Main loop
 while True:
@@ -252,10 +273,24 @@ while True:
     agent.update()
     time.sleep(.5)
     agent.update()
+
+    if "totoISBACK" in agent.range:
+        print('== 1 ==')
+        print(agent.range["totoISBACK"]["led"])
+        print(agent.range["totoISBACK"]["x"])
+        print(agent.range["totoISBACK"]["y"])
     
     IObstacle.tick()
     process_agents_move()
     update_best_scores()
     
+    
+    if "totoISBACK" in agent.range:
+        print('== 2 ==')
+        print(agent.range["totoISBACK"]["led"])
+        print(agent.range["totoISBACK"]["x"])
+        print(agent.range["totoISBACK"]["y"])
+    
     agent.moveTowards(0, 0)
-    i+=1    
+    tick_count+=1
+
