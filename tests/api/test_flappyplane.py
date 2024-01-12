@@ -41,8 +41,8 @@ class TestFlappyPlane(unittest.TestCase):
         """
         Set up the test environment before each test case.
         """
-        self.agentTest = createAgent("toto")  
-        self.agentTest.update()  
+        self.agentTest = createAgent("tata")
+        self.agentTest.update() 
         sleep(3)
 
     def testMove(self):
@@ -53,38 +53,17 @@ class TestFlappyPlane(unittest.TestCase):
         It checks if the agent's X and Y coordinates are updated correctly after moving to the right and bottom.
         """
         agentX = self.agentTest.getX()
-        agentY = self.agentTest.getY()
-        print(f"X {agentX}  Y {agentY}")
-        print(f"X {self.agentTest.getX()}  Y {self.agentTest.getY()}")
-        
-        self.agentTest.update()
-        self.agentTest.move(1, 0)
-        print(f"X {agentX}  Y {agentY}")
-        print(f"X {self.agentTest.getX()}  Y {self.agentTest.getY()}")
+        agentY = self.agentTest.getY()   
 
+        self.agentTest.move(1, 0)
         self.agentTest.update()
-        sleep(3)
-        print(f"X {agentX}  Y {agentY}")
-        print(f"X {self.agentTest.getX()}  Y {self.agentTest.getY()}")
         
         self.assertEqual(self.agentTest.getX(), agentX + 1, "The agent should have moved to the right")
         self.assertEqual(self.agentTest.getY(), agentY + 1, "The agent should have moved to the bottom")
             
-# if __name__ == '__main__':
-#     unittest.main()
+if __name__ == '__main__':
+    unittest.main()
 
-agent = createAgent("totoISBACK")
-agent2 = createAgent("totoLeRetour2")
-agent.update()
-agent2.update()
-i = 0
-
-while True:
-    agent.move(1,0)    
-    agent2.move(1,0)  
-    
-    agent.update()
-    agent2.update()
     
 
 
