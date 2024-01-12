@@ -17,7 +17,7 @@ Si un joueur est touché par un obstacle, il meurt et obtient alors un score en 
 ![SequenceDiagram](doc/diagramme-sequence.png)
 ## ✅ Pré-requis
 En tant qu'administrateur vous aurez besoin de python 3.12 pour exécuter le projet.
-Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](api/README_API.md) à la place
+Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](src/api/README_API.md) à la place
 ## ⚙️ Installation :
 L'installation des packages sont automatiquements faits lors de la création d'un agent.
 ## 🧪 Tests:
@@ -37,8 +37,8 @@ L'installation des packages sont automatiquements faits lors de la création d'u
 - librairie j2l (auteur: [jusdeliens.com](https://jusdeliens.com))
 ## ⚖️ License
 
-Background images by vectorpocket on Freepik : 
-<a href="https://www.freepik.com/free-vector/background-with-night-city-neon-lights_3586829.htm?query=city%20towers#from_view=detail_alsolike">bg1</a>,  <a href="https://www.freepik.com/free-vector/background-with-night-city-neon-lights_3586319.htm?query=city%20towers#from_view=detail_alsolike">bg2</a> & <a href="https://www.freepik.com/free-vector/neon-megapolis-background-with-buildings-skyscrapers_3586320.htm?query=city%20towers#from_view=detail_alsolike">bg3</a> 
+Background image by vectorpocket on Freepik :  
+<a href="https://www.freepik.com/free-vector/neon-megapolis-background-with-buildings-skyscrapers_3586320.htm?query=city%20towers#from_view=detail_alsolike">Link</a> 
 
 MIT License
 
