@@ -42,26 +42,42 @@ class TestTowerObstacle(unittest.TestCase):
         """
         Set up the test environment before each test case.
         """
-        self.agent = createAgent("07012003")  
-        self.agentTest = createAgent("toto")
-
-        self.agent.update()  
-        self.agentTest.update
-        sleep(3)
+        self.obstacleMove = TowerObstacle(16,4,2)
+        
+        self.agent = createAgent("tata")
+        self.obstaclePush = TowerObstacle(16,4,2)
+        
         
     def testMove(self):
-        pass
+        """
+        Test case for the move() method for the obstacles of the server.
+        
+        This test verifies that the obstacles correctly update their position after calling the move() method.
+        It checks if the obstacles coordinates are updated correctly after moving to the right and bottom.
+        """
+        obstacleX = self.obstacleMove.x
+        
+        self.obstacleMove.move()
+
+        self.assertEqual(self.obstacleMove.x,obstacleX - 1, "The obstacle should have moved to the left")
+        
     
     def testPushAgents(self):
-        pass
-    
-    def testPushAgent(self, agent):
-        pass
-    
-    def testScoreboard(self):
-        pass
-    
-
+        """
+        Test case for the pushAgents() method for the obstacles of the server.
+        
+        This test verifies that the obstacles correctly push the agents after calling the pushAgents() method.
+        It checks if the agents coordinates are updated correctly after being pushed.
+        """
+        agentX = self.agent.getX()
+        agentY = self.agent.getY()
+        
+        self.obstaclePush.main
+        
+        
+        
+        self.assertEqual(self.agent.getX(),agentX - 1, "The agent should have moved to the left")
+        self.assertEqual(self.agent.getY(),agentY, "The agent should not have moved")
 
 if __name__ == '__main__':
     unittest.main()
