@@ -310,22 +310,39 @@ obstacles = []
 
 scores = {}
 
-# Création d'agents actualisés par l'arène elle-même
-agents = {
-    "Théo" : 0,
-    "Teiva": 0, 
-    "Augustin": 0
-}
-   
-posX = 1
-posY = 2
-for agentId in agents.keys():
-    agent.rulePlayer(agentId, "life", 100)
-    agent.rulePlayer(agentId, "x", posX)
-    agent.rulePlayer(agentId, "y", posY)
-    agent.rulePlayer(agentId, "dir", 2)
-    agent.rulePlayer(agentId, "led", [0, 0, time.time()])
-    posY+=2
+# Agents actuellement dans l'arène
+agents = []
+
+def process_agent_spawn():
+    """
+    Spawn agents in the arena.
+
+    This function spawns agents in the arena by setting their life to 100 and their x and y coordinates to 1 and 2 respectively.
+    It also sets their direction to 2 (down) and their LED values to [0, 0, time.time()].
+
+    Parameters:
+        None
+
+    Returns:
+        None
+    """
+    global agents
+
+    posX = 1
+    posY = 2
+    for agentId in agent.range.keys():
+        if agentId in agents:
+            continue
+        
+        agents.append(agentId)
+        agent.rulePlayer(agentId, "life", 100)
+        agent.rulePlayer(agentId, "x", posX)
+        agent.rulePlayer(agentId, "y", posY)
+        agent.rulePlayer(agentId, "dir", 2)
+        agent.rulePlayer(agentId, "led", [0, 0, time.time()])
+        posY+=2
+    
+    agents = agent.range.keys()
 
 agent.setColor(255, 255, 0)
 
