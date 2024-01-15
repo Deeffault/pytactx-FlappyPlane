@@ -17,7 +17,7 @@ Si un joueur est touché par un obstacle, il meurt et obtient alors un score en 
 ![SequenceDiagram](doc/diagramme-sequence.png)
 ## ✅ Pré-requis
 En tant qu'administrateur vous aurez besoin de python 3.12 pour exécuter le projet.
-Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](api/README_API.md) à la place
+Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](src/api/README_API.md) à la place
 ## ⚙️ Installation :
 L'installation des packages sont automatiquements faits lors de la création d'un agent.
 ## 🧪 Tests:

@@ -349,7 +349,9 @@ agent.setColor(255, 255, 0)
 tick_count = 0
 last_tick_time = time.time()
 # Main loop
-while True:
+
+
+def main_loop():
     # Get the game state
     agent.update()
     time.sleep(.5)
@@ -375,3 +377,7 @@ while True:
     agent.moveTowards(0, 0)
     tick_count+=1
 
+
+if __name__ == '__main__':
+    while True:
+        main_loop()

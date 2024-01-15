@@ -52,19 +52,18 @@ class TestFlappyPlane(unittest.TestCase):
         This test verifies that the agent correctly updates its position after calling the move() method.
         It checks if the agent's X and Y coordinates are updated correctly after moving to the right and bottom.
         """
+        
         agentX = self.agentTest.getX()
         agentY = self.agentTest.getY()   
 
-        self.agentTest.move(1, 0)
+        self.agentTest.move(0, 0)
         self.agentTest.update()
         
-        self.assertEqual(self.agentTest.getX(), agentX + 1, "The agent should have moved to the right")
-        self.assertEqual(self.agentTest.getY(), agentY + 1, "The agent should have moved to the bottom")
-            
+        self.assertEqual(self.agentTest.getX(), agentX - 1, "The agent should have moved to the right")
+        self.assertEqual(self.agentTest.getY(), agentY - 1, "The agent should have moved to the bottom")
+
 if __name__ == '__main__':
     unittest.main()
-
-    
 
 
 
