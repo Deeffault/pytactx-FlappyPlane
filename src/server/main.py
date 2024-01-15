@@ -122,8 +122,8 @@ class TowerObstacle(IObstacle):
                 if player not in self.agents_scored:
                     if player not in scores:
                         scores[player] = 0
-                    print(f"{player}: {scores[player]} + 1")
                     scores[player] += 1
+                    agent.rulePlayer(player, "score", scores[player])
                     self.agents_scored.append(player)
 
         scored_players_to_remove = []
@@ -356,23 +356,10 @@ def main_loop():
     agent.update()
     time.sleep(.5)
     agent.update()
-
-    if "totoISBACK" in agent.range:
-        print('== 1 ==')
-        print(agent.range["totoISBACK"]["led"])
-        print(agent.range["totoISBACK"]["x"])
-        print(agent.range["totoISBACK"]["y"])
     
     IObstacle.tick()
     process_agents_move()
     update_best_scores()
-    
-    
-    if "totoISBACK" in agent.range:
-        print('== 2 ==')
-        print(agent.range["totoISBACK"]["led"])
-        print(agent.range["totoISBACK"]["x"])
-        print(agent.range["totoISBACK"]["y"])
     
     agent.moveTowards(0, 0)
     tick_count+=1
