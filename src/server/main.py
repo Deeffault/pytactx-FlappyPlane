@@ -192,6 +192,7 @@ def update_best_scores():
     for player in agent.range:
         if player not in scores:
             scores[player] = 0
+            agent.rulePlayer(player, "score", 0)
         if scores[player] > best_alive_score:
             best_alive_score = scores[player]
             best_alive_player = player
