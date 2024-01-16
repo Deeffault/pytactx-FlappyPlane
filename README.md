@@ -15,6 +15,10 @@ Si un joueur est touché par un obstacle, il meurt et obtient alors un score en 
 - Si vous êtes un joueur, référez vous au [README_API](src/api/README_API.md)
 ## 📞 Diagramme de séquence :
 ![SequenceDiagram](doc/diagramme-sequence.png)
+## 📞 Diagramme de classe :
+![main-class Diagram](doc/main-classe.png)
+------------------------------------------------------
+![flappyplane-class Diagram](doc/flappyplane-class.png)
 ## ✅ Pré-requis
 En tant qu'administrateur vous aurez besoin de python 3.12 pour exécuter le projet.
 Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me de l'API](src/api/README_API.md) à la place
