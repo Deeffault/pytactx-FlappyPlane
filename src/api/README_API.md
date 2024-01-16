@@ -10,6 +10,7 @@ Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en
     - Le joueur peut récupérer les obstacles sous la forme d'un tableau bidimensionnel. 
     - Le joueur meurt lorsqu'il est poussé dans le mur de gauche.
     - Le joueur subit des dégâts lorsqu'il touche le mur de droite.
+
 Exemple :
 ```python
 # Example of a player moving forward
