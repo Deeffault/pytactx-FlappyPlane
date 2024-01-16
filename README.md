@@ -6,7 +6,7 @@ Développé dans le cadre d'une formation, le flappy plane doit être un nouveau
 ![Playground](doc/Playground.png)
 ### 🎲 Règles du jeu :
 Les joueurs rejoignent la carte et doivent esquiver les différents obstacles, il est possible de gêner les autres joueurs en se mettant devant eux.
-Si un joueur est touche le mur de gauche, il meurt et obtient alors un score en fonction final correspondant au nombre d'obstacles passés.
+Si un joueur touche le mur de gauche, il meurt et obtient alors un score en fonction final correspondant au nombre d'obstacles passés.
 ![Rules](doc/Rules-1.png)
 ### 🎮 Use cases :
 #### Administrateur : 
