@@ -20,7 +20,7 @@ while True:
 ```
 Méthodes de l'agent :
 ```python
-def update()
+def update():
     """
     Sends the agent's caracteristics and his requests to the server
     """
