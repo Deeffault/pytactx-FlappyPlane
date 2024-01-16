@@ -25,7 +25,11 @@ Si vous voulez faire votre propre robot pour jouer au jeu, consultez [le read me
 ## ⚙️ Installation :
 L'installation des packages sont automatiquements faits lors de la création d'un agent.
 ## 🧪 Tests:
-
+- Test API :
+  - Mouvement de l'agent
+- Test Server :
+  - Mouvement de l'obstacle
+  - Collision d'un agent avec un obstacle
 ## 🛣️ Roadmap
 - [x] Jeu de base en FFA continu
 - [ ] Manches
