@@ -244,6 +244,18 @@ def process_agents_move():
         agent.rulePlayer(player, "color", [0, 0, tick_count%100])
 
 def process_agent_respawn():
+    """
+    Respawn agents in the arena.
+
+    This function respawns agents in the arena by setting their life to 100 and their x and y coordinates to 1 and 2 respectively.
+    It also sets their direction to 2 (left) and their LED values to [0, 0, time.time()].
+
+    Parameters:
+        None
+
+    Returns:
+        None
+    """
     for player in agent.range:
         playerdata = agent.range[player]
         if playerdata['life'] <= 0:
@@ -311,8 +323,8 @@ def process_agent_spawn():
     """
     Spawn agents in the arena.
 
-    This function spawns agents in the arena by setting their life to 100 and their x and y coordinates to 1 and 2 respectively.
-    It also sets their direction to 2 (down) and their LED values to [0, 0, time.time()].
+    This function spawns agents in the arena by setting their life to 100 and their x and y coordinates to 1 for X and increment Y.
+    It also sets their direction to 2 (left) and their LED values to [0, 0, time.time()].
 
     Parameters:
         None
@@ -346,6 +358,21 @@ last_tick_time = time.time()
 
 
 def main_loop():
+    """
+    This function represents the main loop of the game. It performs the following actions in order:
+    
+    1. Prints the current tick count.
+    2. Prints the current state of obstacles.
+    3. Updates the agent twice with a delay of 0.5 seconds between the updates.
+    4. Calls the tick method of IObstacle.
+    5. Processes the agent's move.
+    6. Updates the best scores.
+    7. Moves the agent towards the origin (0,0).
+    8. Increments the tick count by 1.
+    
+    Note: This function uses a global variable 'tick_count'.
+    """
+
     # Get the game state
     global tick_count
     print(f"Tick {tick_count}")
