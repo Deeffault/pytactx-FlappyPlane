@@ -354,6 +354,8 @@ last_tick_time = time.time()
 
 def main_loop():
     # Get the game state
+    global tick_count
+    
     agent.update()
     time.sleep(.5)
     agent.update()

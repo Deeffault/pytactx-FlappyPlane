@@ -7,7 +7,6 @@ import unittest
 
 from dotenv import load_dotenv
 from api.flappyplane import Plane
-from time import sleep
 
 load_dotenv()
 
@@ -42,8 +41,9 @@ class TestFlappyPlane(unittest.TestCase):
         Set up the test environment before each test case.
         """
         self.agentTest = createAgent("tata")
+        self.arbitre = createAgent(ARBITRE_USERNAME)
         self.agentTest.update() 
-        sleep(3)
+        self.arbitre.update()
 
     def testMove(self):
         """
@@ -56,14 +56,17 @@ class TestFlappyPlane(unittest.TestCase):
         agentX = self.agentTest.getX()
         agentY = self.agentTest.getY()   
 
-        self.agentTest.move(0, 0)
+        self.agentTest.move(1, 1)
         self.agentTest.update()
         
         self.assertEqual(self.agentTest.getX(), agentX - 1, "The agent should have moved to the right")
         self.assertEqual(self.agentTest.getY(), agentY - 1, "The agent should have moved to the bottom")
 
-if __name__ == '__main__':
-    unittest.main()
+# if __name__ == '__main__':
+#     unittest.main()
 
 
-
+agentTe = createAgent("toto")
+while True:
+    agentTe.move(1, 0)
+    agentTe.update()

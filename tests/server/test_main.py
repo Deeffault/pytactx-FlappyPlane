@@ -44,7 +44,8 @@ class TestTowerObstacle(unittest.TestCase):
         """
         self.obstacleMove = TowerObstacle(16,4,2)
         
-        self.agent = createAgent("tata")
+        self.agent = createAgent("toto")
+
         self.obstaclePush = TowerObstacle(16,4,2)
         
         
@@ -69,15 +70,19 @@ class TestTowerObstacle(unittest.TestCase):
         This test verifies that the obstacles correctly push the agents after calling the pushAgents() method.
         It checks if the agents coordinates are updated correctly after being pushed.
         """
+        
         agentX = self.agent.getX()
         agentY = self.agent.getY()
         
-        self.obstaclePush.main
-        
-        
+        self.obstaclePush.push_agents()
         
         self.assertEqual(self.agent.getX(),agentX - 1, "The agent should have moved to the left")
         self.assertEqual(self.agent.getY(),agentY, "The agent should not have moved")
 
+        
+        
+
+
 if __name__ == '__main__':
     unittest.main()
+ 
