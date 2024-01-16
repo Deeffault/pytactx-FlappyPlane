@@ -10,6 +10,39 @@ Si un joueur est touché par un obstacle, il meurt, il obtient alors un score en
     - Le joueur peut récupérer les obstacles sous la forme d'un tableau bidimensionnel. 
     - Le joueur meurt lorsqu'il est poussé dans le mur de gauche.
     - Le joueur subit des dégâts lorsqu'il touche le mur de droite.
+Exemple :
+```python
+# Example of a player moving forward
+plane = Plane(playerId, arena, username, password, server)
+while True:
+    plane.move(1, 0) # move forward
+    plane.update()
+```
+Méthodes de l'agent :
+```python
+def update()
+    """
+    Sends the agent's caracteristics and his requests to the server
+    """
+def move(px, py):
+    """
+    Moves the plane according to the px,py parameters
+    With px, py between -1 and 1
+    Send the request to the server, and the server moves the plane
+    """
+def getX() -> int:
+    """
+    Returns the plane's x position
+    """
+def getY() -> int:
+    """
+    Returns the plane's y position
+    """
+def getMap() -> tuple[tuple[int]]:
+    """
+    Returns the arena's map
+    """
+```
 ## ✅ Pré-requis
 En tant que joueur vous aurez besoin de python 3.12 pour éxécuter le projet.
 ## ⚙️ Installation : 
