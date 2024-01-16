@@ -255,59 +255,50 @@ def process_agent_respawn():
 COLUMNS = 16
 ROWS = 9
 
-agent.ruleArena("gridColumns", COLUMNS)
-agent.ruleArena("gridRows", ROWS)
-
-# Map background
-agent.ruleArena("bgImg", "https://cdn.discordapp.com/attachments/1173930308039610378/1173936773903175730/background.png")
-
-# Max move box
-agent.ruleArena("dxMax", COLUMNS)
-agent.ruleArena("dyMax", ROWS)
-
-
 # Map array
 map = [[0 for x in range(COLUMNS)] for y in range(ROWS)]
-agent.ruleArena("map", map)
 
-# Map collision array
-mapFriction = [0, 1, 1, 1, 1, 1, 1, 1, 1]
-agent.ruleArena("mapFriction", mapFriction)
+rules = {
+    # Arena size
+    "gridColumns": COLUMNS,
+    "gridRows": ROWS,
+    # Map background    
+    "bgImg": "https://cdn.discordapp.com/attachments/1173930308039610378/1173936773903175730/background.png",
+    # Clean map
+    "map": map,
+    # Map collision array
+    "mapFriction": [0, 1, 1, 1, 1, 1, 1, 1, 1],
+    # Map texture array
+    "mapImgs": [
+        "",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1173995601373970493/Tower_1.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1173995601688547358/Tower_2.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1173995602095374366/Tower_3.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1173995602363826268/Tower_4.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1174012156585451610/Reverse-Tower_1.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1174012156820336740/Reverse-Tower_2.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1174012157105553498/Reverse-Tower_3.png",
+        "https://cdn.discordapp.com/attachments/1173930308039610378/1174012157491425361/Reverse-Tower_4.png"
+    ],
+    # Map breakable array
+    "mapBreakable": [False for i in range(9)],
+    # Map hit array
+    "mapHit": [0 for i in range(9)],
+    # Player texture array
+    "pImgs": ["https://cdn.discordapp.com/attachments/1173930308039610378/1173931307613552661/Variant2.png"],
+    # Disable Brownian Map
+    "brownianMap": False,
+    # Collision dmg
+    "hitCollision": [0, 0, 0, 0, 0],
+    # Disable score calculation using KD
+    "score": "",
+    # Make players immobile
+    "dxMax": [0, 100, 0, 0, 0],
+    "dyMax": [0, 100, 0, 0, 0],
+}
 
-# Map texture array
-agent.ruleArena("mapImgs", [
-    "",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1173995601373970493/Tower_1.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1173995601688547358/Tower_2.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1173995602095374366/Tower_3.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1173995602363826268/Tower_4.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1174012156585451610/Reverse-Tower_1.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1174012156820336740/Reverse-Tower_2.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1174012157105553498/Reverse-Tower_3.png",
-    "https://cdn.discordapp.com/attachments/1173930308039610378/1174012157491425361/Reverse-Tower_4.png"
-])
-
-# Map breakable array
-agent.ruleArena("mapBreakable", [False for i in range(9)])
-
-# Map breakable array
-agent.ruleArena("mapHit", [0 for i in range(9)])
-
-# Player texture array
-agent.ruleArena("pImgs", ["https://cdn.discordapp.com/attachments/1173930308039610378/1173931307613552661/Variant2.png"])
-
-# Disable Brownian Map
-agent.ruleArena("brownianMap", False)
-
-# Collision dmg
-agent.ruleArena("hitCollision", [0, 0, 0, 0, 0])
-
-# Disable score calculation using KD
-agent.ruleArena("score", "")
-
-# Make players immobile
-agent.ruleArena("dxMax", [0, 100, 0, 0, 0])
-agent.ruleArena("dyMax", [0, 100, 0, 0, 0])
+for key, value in rules.items():
+    agent.ruleArena(key, value)
 
 obstacles = []
 
