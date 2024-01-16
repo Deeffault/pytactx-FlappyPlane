@@ -161,6 +161,7 @@ def push_agent(player):
             if playerdata2['x'] == playerdata['x'] - 1 and playerdata2['y'] == playerdata['y']:
                 push_agent(player2)
         agent.rulePlayer(player, "x", agent.range[player]['x'] - 1)
+        playerdata['x'] -= 1
 
 best_player_of_all_time = ""
 best_score_of_all_time = 0
@@ -216,6 +217,7 @@ def process_agents_move():
     for player in agent.range:
         playerdata = agent.range[player]
         if playerdata['life'] > 0 and (playerdata['led'][0] not in (0, 2) or playerdata['led'][1] not in (0, 2)):
+            print(f"Player {player} is moving")
             n_pos = [playerdata['x'], playerdata['y']]
             if playerdata['led'][0] not in (0, 2):
                 n_pos[0] += (1 if playerdata['led'][0] >= 2 else -1)
@@ -355,7 +357,8 @@ last_tick_time = time.time()
 def main_loop():
     # Get the game state
     global tick_count
-    
+    print(f"Tick {tick_count}")
+    print(obstacles)
     agent.update()
     time.sleep(.5)
     agent.update()
